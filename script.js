@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const departuresList = document.getElementById('departures-list');
+    const fenchurchStreetList = document.getElementById('fenchurch-street-list');
+    const southendList = document.getElementById('southend-list');
     const clockElement = document.getElementById('clock');
 
     // Update clock every second
@@ -28,11 +30,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function renderDepartures(services) {
-        if (!services || services.length === 0) {
-            departuresList.innerHTML = `
+    // Fetch arrivals from Fenchurch Street
+    async function fetchFenchurchStreet() {
+        try {
+            const response = await fetch('/api/arrivals/fenchurch-street');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            renderTrains(fenchurchStreetList, data.trainServices || []);
+        } catch (error) {
+            console.error('Error fetching Fenchurch Street data:', error);
+            fenchurchStreetList.innerHTML = `
                 <div class="loading-state">
-                    <p>No departures found.</p>
+                    <p style="color: var(--status-cancelled)">Failed to load data.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Fetch arrivals from Southend
+    async function fetchSouthend() {
+        try {
+            const response = await fetch('/api/arrivals/southend');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            renderTrains(southendList, data.trainServices || []);
+        } catch (error) {
+            console.error('Error fetching Southend data:', error);
+            southendList.innerHTML = `
+                <div class="loading-state">
+                    <p style="color: var(--status-cancelled)">Failed to load data.</p>
+                </div>
+            `;
+        }
+    }
+
+    function renderTrains(container, services) {
+        if (!services || services.length === 0) {
+            container.innerHTML = `
+                <div class="loading-state">
+                    <p>No trains found.</p>
                 </div>
             `;
             return;
@@ -57,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusClass = 'status-delayed';
                 statusText = 'Delayed';
             } else {
-                // It's a time, likely delayed if different from scheduled
                 statusClass = 'status-delayed';
             }
 
@@ -74,12 +109,20 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }).join('');
 
-        departuresList.innerHTML = html;
+        container.innerHTML = html;
+    }
+
+    function renderDepartures(services) {
+        renderTrains(departuresList, services);
     }
 
     // Initial fetch and auto-refresh
     fetchDepartures();
+    fetchFenchurchStreet();
+    fetchSouthend();
     setInterval(fetchDepartures, 30000); // Refresh every 30 seconds
+    setInterval(fetchFenchurchStreet, 30000);
+    setInterval(fetchSouthend, 30000);
 
     // Countdown Logic
     let nextTrainPlat1 = null;

@@ -36,6 +36,7 @@
 
         <main>
             <div class="departures-card">
+                <h2 class="section-title">Departures from West Horndon</h2>
                 <div class="table-header">
                     <span class="col-time">Time</span>
                     <span class="col-dest">Destination</span>
@@ -44,6 +45,38 @@
                 </div>
                 <div id="departures-list" class="departures-list">
                     <!-- Departures will be injected here -->
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading live data...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="departures-card">
+                <h2 class="section-title">Next trains to West Horndon from Fenchurch Street</h2>
+                <div class="table-header">
+                    <span class="col-time">Time</span>
+                    <span class="col-dest">Destination</span>
+                    <span class="col-plat">Plat</span>
+                    <span class="col-status">Status</span>
+                </div>
+                <div id="fenchurch-street-list" class="departures-list">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading live data...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="departures-card">
+                <h2 class="section-title">Next trains to West Horndon from Southend Central</h2>
+                <div class="table-header">
+                    <span class="col-time">Time</span>
+                    <span class="col-dest">Destination</span>
+                    <span class="col-plat">Plat</span>
+                    <span class="col-status">Status</span>
+                </div>
+                <div id="southend-list" class="departures-list">
                     <div class="loading-state">
                         <div class="spinner"></div>
                         <p>Loading live data...</p>
