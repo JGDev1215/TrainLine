@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>West Horndon Live Departures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <h1>West Horndon <span class="live-indicator">LIVE</span></h1>
+                <p class="subtitle">Real-time Departure Board</p>
+            </div>
+            <div class="clock" id="clock">--:--</div>
+        </header>
+
+        <div class="countdowns">
+            <div class="countdown-box">
+                <div class="plat-label">Platform 1</div>
+                <div class="time-remaining" id="timer-plat-1">--:--</div>
+                <div class="next-dest" id="dest-plat-1">Waiting...</div>
+            </div>
+            <div class="countdown-box">
+                <div class="plat-label">Platform 2</div>
+                <div class="time-remaining" id="timer-plat-2">--:--</div>
+                <div class="next-dest" id="dest-plat-2">Waiting...</div>
+            </div>
+        </div>
+
+        <main>
+            <div class="departures-card">
+                <div class="table-header">
+                    <span class="col-time">Time</span>
+                    <span class="col-dest">Destination</span>
+                    <span class="col-plat">Plat</span>
+                    <span class="col-status">Status</span>
+                </div>
+                <div id="departures-list" class="departures-list">
+                    <!-- Departures will be injected here -->
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading live data...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Data provided by National Rail Enquiries via Huxley 2</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
